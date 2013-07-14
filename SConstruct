@@ -6,10 +6,6 @@ import xilinx
 debug = False
 
 
-#Help("""
-#Type: 'scons debug': debug build
-#""")
-
 AddOption("--build_debug",
           dest='build_debug',
           action="store_true",
@@ -21,11 +17,19 @@ AddOption("--config_file",
           action="store",
           help="specify a config file",
           default='config.json')
+AddOption("--clean_build",
+          dest="clean_build",
+          action="store_true",
+          help="Clean the build environment",
+          default=False)
 
 #Create an environment
 env = Environment()
 
+#parse options from the command line
 debug = GetOption('build_debug')
+clean_build = GetOption('clean_build')
+
 env['CONFIG_FILE'] = GetOption('config_file')
 
 
@@ -36,9 +40,13 @@ xilinx.initialize_environment(env = env,
                               build_tool = "ISE",
                               version_number = "")
 
+if clean_build:
+  #Create a clean target
+  xilinx.clean_build(env)
+  Exit(0)
+
 #get the xst tool
 env.Tool('xst')
-
 
 if debug == True:
   d = env.Dictionary()
@@ -53,5 +61,6 @@ if debug == True:
 #Alias 'xst' to build the NGC file
 env.Alias("xst", xilinx.get_xst_targets(env))
 env.xst(xilinx.get_xst_targets(env), None)
+
 
 

@@ -19,9 +19,8 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
-
-
 import os
+import shutil
 import string
 
 import utils
@@ -100,6 +99,7 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
     else:
 
         raise XilinxNotImplemented("Vivado is not implemented yet")
+
     return env
 
 def get_xst_targets(env):
@@ -109,4 +109,18 @@ def get_xst_targets(env):
     config = utils.read_config(env)
     return xst_utils.get_ngc_filename(config, absolute = True)
 
+
+def clean_build(env):
+    config = utils.read_config(env)
+    base_dir = utils.get_project_base()
+    build_dir = utils.get_build_directory(config, absolute = True)
+    xmsgs_dir = os.path.join(base_dir, "_xmsgs")
+
+    print "Removing Directories:"
+    print "\t%s" % build_dir
+    print "\t%s" % xmsgs_dir
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
+    if os.path.exists(xmsgs_dir):
+        shutil.rmtree(xmsgs_dir)
 

@@ -379,7 +379,7 @@ def create_build_directory(config):
 
     return build_dir
 
-def get_build_directory(config, absolute):
+def get_build_directory(config, absolute = False):
     """Returns the project output directory location
 
     Args:

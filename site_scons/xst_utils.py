@@ -180,7 +180,7 @@ def get_ngc_filename(config, absolute = False):
     xst_dir = get_xst_dir(config, absolute)
     top_module = config["top_module"]
     ngc_file = os.path.join(xst_dir, "%s.ngc" % top_module)
-    print "ngc filename: %s" % ngc_file
+    #print "ngc filename: %s" % ngc_file
     return ngc_file
 
 def create_lso_file(config):
