@@ -39,6 +39,7 @@ xilinx.initialize_environment(env = env,
 #get the xst tool
 env.Tool('xst')
 
+
 if debug == True:
   d = env.Dictionary()
   keys = d.keys()
@@ -48,6 +49,9 @@ if debug == True:
   #for key in keys:
   #  print "\t%s: %s" % (key, str(d[key]))
 
-env.xst()
+
+#Alias 'xst' to build the NGC file
+env.Alias("xst", xilinx.get_xst_targets(env))
+env.xst(xilinx.get_xst_targets(env), None)
 
 

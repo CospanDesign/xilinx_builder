@@ -126,7 +126,7 @@ def exists(env):
     return _detect(env)
 
 
-def XST(env):
+def XST(env, target, source):
     """
     A pseudo-Builder wrapper for the XST synthesizer
 
@@ -148,6 +148,8 @@ def XST(env):
     #OKAY MAYBE I DIDN'T NEED A PSUEDO-BUILDER
     config = utils.read_config(env)
     _xst_builder.__call__(env, env["XST_NGC_FILE"], config["verilog"])
+    return xst_utils.get_ngc_filename(config)
+
     
 
 

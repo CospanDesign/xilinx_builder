@@ -22,8 +22,10 @@
 
 
 import os
-import utils
 import string
+
+import utils
+import xst_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -99,4 +101,12 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
 
         raise XilinxNotImplemented("Vivado is not implemented yet")
     return env
+
+def get_xst_targets(env):
+    """
+    Returns a list of build target for the XST
+    """
+    config = utils.read_config(env)
+    return xst_utils.get_ngc_filename(config, absolute = True)
+
 
