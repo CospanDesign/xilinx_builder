@@ -50,7 +50,7 @@ def _xst_emitter(target, source, env):
     #   .ngc file (This may already be there)
     #   .xrpt file
     #   .xst file
-    target.append(xst_utils.get_xst_dir(config))
+    #target.append(xst_utils.get_xst_dir(config))
 
 
 
