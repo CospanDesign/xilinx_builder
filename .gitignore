@@ -1,5 +1,12 @@
 *.py[cod]
 
+# Xilinx output
+_xmsgs/
+build/
+
+#SCons stuff
+.sconsign.dblight
+
 # VIM temporary files
 *~
 *.swp
