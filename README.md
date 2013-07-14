@@ -20,6 +20,20 @@ Edit the config.json file to setup a build environment, the keywords are as
       by the user will override the default values set in
         site_scons/sxt_default_flags.json
 
+#Command Line Options:
+
+Targets:
+  * xst: synthesize (verilog, [cores]) -> .ncd
+  * ngd\_build: netlist translation (from abstract constructs to Xilinx 
+      specific constructs)
+      (.ngc -> .ncd)
+Flags:
+  * --debug\_build: view debug messages helpful to debug the builder
+  * --config\_file: specify a different configuration file than 'config.json'
+  * --clean\_build: remove all directories create by the build process
+    config["build\_dir"] directory
+    _xmsgs directory
+
 #To Do:
 
 Add support for vhdl
