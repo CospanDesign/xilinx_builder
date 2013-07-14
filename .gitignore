@@ -5,7 +5,7 @@ _xmsgs/
 build/
 
 #SCons stuff
-.sconsign.dblight
+.sconsign.dblite
 
 # VIM temporary files
 *~
