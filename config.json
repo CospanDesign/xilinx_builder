@@ -1,0 +1,20 @@
+{
+  "name":"project",
+  "device":"xc6slx9tqg144-3",
+  "build_dir":"build",
+  "verilog":[
+      {
+        "path":"rtl",
+        "recursive":true
+      }
+    ],
+  "top_module":"main",
+  "constraint_files":[
+      "project.ucf"
+    ],
+  "xst":{
+    "flags":{
+      "-iob":"Auto"
+    }
+  }
+}
