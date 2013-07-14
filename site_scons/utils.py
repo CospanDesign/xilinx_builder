@@ -64,13 +64,13 @@ def get_project_base():
     """
     return PROJECT_BASE
 
-def read_config(fn = DEFAULT_CONFIG_FILE):
+def read_config(env):
     """
     Read the build configuration file and creates a dictionary to be used
     throughout the project
 
     Args:
-        fn: Filename of the build configuration, the default is config.json
+        env: Environmental variable where the config file is
 
     Return:
         Dictionary of the configuration
@@ -80,9 +80,16 @@ def read_config(fn = DEFAULT_CONFIG_FILE):
     """
 
     #Open the configuration file
-    if fn == DEFAULT_CONFIG_FILE:
-        fn = os.path.join(PROJECT_BASE,
-                          DEFAULT_CONFIG_FILE)
+    fn = env["CONFIG_FILE"]
+    if not os.path.exists(fn):
+        #if the configuration file name doesn't exists then
+        #maybe it is at the base directory of the project
+        fn = os.path.join(get_project_base(), fn)
+
+
+    #if fn == DEFAULT_CONFIG_FILE:
+    #    fn = os.path.join(PROJECT_BASE,
+    #                      DEFAULT_CONFIG_FILE)
     try:
         config = json.load(open(fn, "r"))
     except TypeError as err:
@@ -372,5 +379,28 @@ def create_build_directory(config):
 
     return build_dir
 
+def get_build_directory(config, absolute):
+    """Returns the project output directory location
+
+    Args:
+        config (dictionary): configuration dictionary
+        absolute (boolean):
+            False (default): Relative to project base
+            True: Absolute
+
+    Returns:
+        (string): strin representation of the path to the output
+
+    Raises:
+        Nothing
+    """
+    build_dir = DEFAULT_BUILD_DIR
+    if "build_dir" in config.keys():
+        build_dir = config["build_dir"]
+
+    if absolute:
+        build_dir = os.path.join(get_project_base(), build_dir)
+
+    return build_dir
 
 

@@ -37,11 +37,31 @@ import utils
 import xst_utils
 
 
+
+
+def _xst_emitter(target, source, env):
+    #Sources are okay but I need to tell SCons all the stuff this thing
+    #makes
+    config = utils.read_config(env)
+    #Targets:
+    #   .lso file
+    #   .prj file
+    #   .ngr file
+    #   .ngc file (This may already be there)
+    #   .xrpt file
+    #   .xst file
+    target.append(xst_utils.get_xst_dir(config))
+
+
+
+    return target, source
+
 _xst_builder = SCons.Builder.Builder(
         action = SCons.Action.Action('$XST_COM', '$XST_COMSTR'),
         suffix = ".ngc",
         src_suffix = ".xst",
-        single_source = 1)
+        #single_source = 1,
+        emitter = _xst_emitter)
 
 class XSTBuilderWarning(SCons.Warnings.Warning):
     pass
@@ -70,13 +90,13 @@ def generate(env):
     print "In generate function"
     env["XST_COMMAND"] = _detect(env)
     #get the configuration file name
-    fn = env["CONFIG_FILE"]
-    if os.path.exists(fn):
-        #if the configuration file name doesn't exists then
-        #maybe it is at the base directory of the project
-        fn = os.path.join(utils.get_project_base(), fn)
+    #fn = env["CONFIG_FILE"]
+    #if os.path.exists(fn):
+    #    #if the configuration file name doesn't exists then
+    #    #maybe it is at the base directory of the project
+    #    fn = os.path.join(utils.get_project_base(), fn)
 
-    config = utils.read_config(fn)
+    config = utils.read_config(env)
     xst_utils.create_xst_project_file(config)
     script_filename = xst_utils.create_xst_script(config)
     report_filename = xst_utils.get_report_filename(config)
@@ -87,7 +107,8 @@ def generate(env):
         XST_SCRIPT_FILE = script_filename,
         XST_NGC_FILE  = ngc_filename,
 
-        XST_COM = '$XST_COMMAND -intstyle ise -ifn "$XST_SCRIPT_FILE" -ofn "$XST_REPORT_FILE"',
+        #XST_COM = '$XST_COMMAND -intstyle ise -ifn "$XST_SCRIPT_FILE" -ofn "$XST_REPORT_FILE"',
+        XST_COM = '$XST_COMMAND -ifn "$XST_SCRIPT_FILE" -ofn "$XST_REPORT_FILE"',
         XST_COMSTR = ""
     )
 
@@ -125,7 +146,8 @@ def XST(env):
         XSTBuilderError
     """
     #OKAY MAYBE I DIDN'T NEED A PSUEDO-BUILDER
-    _xst_builder.__call__(env, env["XST_NGC_FILE"], env["XST_SCRIPT_FILE"])
+    config = utils.read_config(env)
+    _xst_builder.__call__(env, env["XST_NGC_FILE"], config["verilog"])
     
 
 

@@ -33,11 +33,6 @@ class Test (unittest.TestCase):
         xilinx.initialize_environment(env)
         #print "Env: %s" % env["PATH"]
 
-    def test_generate_ise_project(self):
-        """generate a define table given a file"""
-        #print "Xilinx tool: %s" % str(utils.get_xilinx_tool_types())
-        xilinx.generate_ise_project()
-
 
 if __name__ == "__main__":
   unittest.main()

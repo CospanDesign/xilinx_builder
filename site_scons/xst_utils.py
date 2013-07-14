@@ -32,6 +32,7 @@ XST_SCRIPT_FILENAME = "xst_script.xst"
 XST_TEMP_DIR = "projnav.tmp"
 XST_DIR = "xst"
 XST_OUTFILE = "xst_out"
+XST_PROJECT_LSO = "project.lso"
 
 def get_xst_flags(config):
     """
@@ -74,7 +75,7 @@ def create_xst_dir(config):
         config (dictionary): configuration dictionary
 
     Return:
-        Nothing
+        (string): xst output directory (relative)
 
     Raises:
         Nothing
@@ -87,6 +88,26 @@ def create_xst_dir(config):
     if not os.path.exists(xst_dir):
         os.makedirs(xst_dir)
     return xst_dir
+
+def get_xst_dir(config, absolute = False):
+    """Returns the xst output directory location
+
+    Args:
+        config (dictionary): configuration dictionary
+        absolute (boolean):
+            False (default): Relative to project base
+            True: Absolute
+
+    Returns:
+        (string): strin representation of the path to the output
+
+    Raises:
+        Nothing
+    """
+    build_dir = utils.get_build_directory(config, absolute)
+    xst_dir = os.path.join(build_dir, XST_DIR)
+    return xst_dir
+
 
 def create_temp_dir(config):
     """
@@ -128,6 +149,7 @@ def create_xst_project_file(config):
     
     fp = open(project_fn, "w")
     v = ""
+    #XXX: There should be allowances for adding different libraries in the future
     for vf in config["verilog"]:
         v += "verilog work \"%s\"%s" % (vf, os.linesep)
 
@@ -154,10 +176,41 @@ def get_report_filename(config):
     return output_file
 
 def get_ngc_filename(config):
+    """get the output filename"""
     xst_abs_dir = create_xst_dir(config)
     top_module = config["top_module"]
     ngc_file = os.path.join(xst_abs_dir, "%s.ngc" % top_module)
     return ngc_file
+
+def create_lso_file(config):
+    """
+    Creates a library search order file location for the XST script
+
+    This is to declutter the base directory
+
+    Args:
+        config (dictionary): configuraiton dictionary
+
+    Return:
+        Nothing
+
+    Raises:
+        (string) relative lso file name
+        
+    """
+    xst_dir = os.path.join(config["build_dir"], XST_DIR)
+    lso_fn = os.path.join(xst_dir, XST_PROJECT_LSO)
+
+    xst_abs_dir = create_xst_dir(config)
+    fn = os.path.join(xst_abs_dir, XST_PROJECT_LSO)
+    #print "lSO filename: %s" % fn
+    fp = open(fn, "w")
+    #fp.write("DEFAULT_SEARCH_ORDER%s" % os.linesep)
+    fp.write("work%s" % os.linesep)
+    fp.close()
+    
+    return lso_fn
+    #return fn
 
 def create_xst_script(config):
     """
@@ -171,7 +224,7 @@ def create_xst_script(config):
         Nothing
 
     Raises:
-        Nothing
+        (string) script file name
     """
     xst_abs_dir = create_xst_dir(config)
     flags = get_xst_flags(config)
@@ -190,12 +243,18 @@ def create_xst_script(config):
     fp = open(xst_script_fn, "w")
     fp.write("set -tmpdir \"%s\"%s" % (temp_dir, os.linesep))
     fp.write("set -xsthdpdir \"%s\"%s" % (xst_dir, os.linesep))
+    #fp.write("set -xsthdpini \"%s\"%s" % (xst_dir, os.linesep))
     fp.write("run%s" % os.linesep)
     fp.write("-ifn %s%s" % (project_dir, os.linesep))
     fp.write("-ofn %s%s" % (output_file, os.linesep))
     fp.write("-ofmt NGC%s" % (os.linesep))
     fp.write("-p %s%s" % (config["device"], os.linesep))
     fp.write("-top %s%s" % (top_module, os.linesep))
+
+    #print "flags[lso] = %s" % str(flags["-lso"]["value"])
+    if ("-lso" not in flags.keys()) or (len(flags["-lso"]["value"]) == 0):
+        #print "creating custom lso file"
+        flags["-lso"]["value"] = create_lso_file(config)
 
     for flag in flags:
         if len(flags[flag]["value"]) == 0:

@@ -14,6 +14,9 @@ class Test (unittest.TestCase):
 
     def setUp(self):
         self.dbg = False
+        self.env = {}
+        self.env["CONFIG_FILE"] = "config.json"
+
 
     def test_get_xilinx_tool_types(self):
         """generate a define table given a file"""
@@ -21,7 +24,7 @@ class Test (unittest.TestCase):
         self.assertGreater(len(utils.get_xilinx_tool_types()), 0)
 
     def test_read_config(self):
-        cfg = utils.read_config()
+        cfg = utils.read_config(self.env)
         self.assertIn("device", cfg.keys())
 
     def test_find_xilinx_path(self):
@@ -37,7 +40,7 @@ class Test (unittest.TestCase):
         self.assertIsNotNone(path)
 
     def test_create_build_directory(self):
-        cfg = utils.read_config()
+        cfg = utils.read_config(self.env)
         build_dir = "temp"
         cfg["build_dir"] = build_dir
         utils.create_build_directory(cfg)

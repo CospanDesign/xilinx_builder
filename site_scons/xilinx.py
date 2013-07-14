@@ -100,17 +100,3 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
         raise XilinxNotImplemented("Vivado is not implemented yet")
     return env
 
-def generate_ise_project(config_file = None):
-    #Read the configuration files (Default Configuration File)
-    config = {}
-    if config_file is None:
-        config = utils.read_config()
-    else:
-        config = utils.read_config(config_file)
-
-    #Create an ISE Project
-    project_name = config["name"]
-    fn = os.path.join(utils.get_project_base(), "%s.prj" % project_name)
-    #print "File path: %s" % fn
-    #fp = open(fn, "w")
-    return None
