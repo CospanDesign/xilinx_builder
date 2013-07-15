@@ -66,7 +66,7 @@ def get_ngd_flags(config):
 
 def create_ngd_dir(config):
     """
-    Create an ngd directiroy in the build folder
+    Create an ngd directory in the build folder
 
     Args:
         config (dictionary): configuration dictionary
@@ -187,7 +187,7 @@ def get_build_flags_string(config):
             continue
 
         if flags[flag]["value"] == "_true":
-            #Special case where we dont specify any variables
+            #Special case where we don't specify any variables
             flag_string += "%s " % flag
             continue
         
@@ -195,3 +195,4 @@ def get_build_flags_string(config):
         flag_string += "%s %s " % (flag, flags[flag]["value"])
 
     return flag_string
+

@@ -62,11 +62,11 @@ def _detect(env):
 
     raise SCons.Errors.StopError(
             NGDBuilderError,
-            "Could not find ngd command")
+            "Could not find ngdbuild command")
     return None
 
 def generate(env):
-    """Add the correct ngd builder to the environment"""
+    """Add the ngdbuild builder to the environment"""
     env["NGD_COMMAND"] = _detect(env)
 
     config = utils.read_config(env)
@@ -89,10 +89,7 @@ def exists(env):
 
 def NGD(env, target, source):
     """
-    A pseudo-Builder wrapper for the NGD synthesizer
-
-    Read the config file
-    Creates the NGD file
+    A pseudo-Builder wrapper for the NGD translate
 
     Args
         env (SCons Environment)

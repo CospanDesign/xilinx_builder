@@ -247,6 +247,45 @@ def get_window_drives():
 
     return drives
 
+def find_license_dir(path = ""):
+    """
+    Based on the operating system attempt to find the license in the default
+    locations
+
+    Args:
+        path (string): a path to the license, or a path to start searching
+            for the license
+
+    Returns:
+        (string) A path to where the license files are
+
+    Raises:
+        Configuration Error when a license cannot be found
+    """
+    if len (path) > 0:
+        if os.path.exists(path):
+            return path
+
+    if os.name == "posix":
+        #First attemp to find the file in the default location
+
+        home = os.environ["HOME"]
+        xilinx_dir = os.path.join(home, ".Xilinx")
+        if os.path.exists(xilinx_dir):
+            search_path = os.path.join(xilinx_dir, "*.lic")
+            results = glob.glob(search_path)
+            if len(search_path) > 0:
+                print "Found directory: %s, results: %s" % (xilinx_dir, str(results[0]))
+                return search_path
+
+        raise ConfiugrationError("Error unable to find Xilinx Lincense File")
+
+    elif os.name == "nt":
+
+        print "Windows box... TODO :("
+        raise ConfiugrationError("Error unable to find Xilinx Lincense File on Windows box")
+
+
 def find_xilinx_path(path = "", build_tool = "ISE", version_number = ""):
     """
     Finds the path of the xilinx build tool specified by the user

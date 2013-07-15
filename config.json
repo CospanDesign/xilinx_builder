@@ -1,6 +1,6 @@
 {
   "name":"project",
-  "device":"xc6slx9tqg144-3",
+  "device":"xc6slx9-tqg144-3",
   "build_dir":"build",
   "verilog":[
       {

@@ -24,8 +24,10 @@ import shutil
 import string
 
 import utils
+
 import xst_utils
 import ngd_utils
+import map_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -73,6 +75,10 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
     env['XILINX_PLANAHEAD'] = os.path.join(xpath, "PlanAhead")
     env['XILINX'] = xpath
 
+    #This is used for the license file
+    env['ENV']['USER'] = os.environ["USER"]
+    env['ENV']['HOME'] = os.environ["HOME"]
+
     if 'LD_LIBRARY_PATH' not in env:
         env['LD_LIBRARY_PATH'] = ''
 
@@ -114,6 +120,9 @@ def get_ngd_targets(env):
     config = utils.read_config(env)
     return ngd_utils.get_ngd_filename(config, absolute = True)
 
+def get_map_targets(env):
+    config = utils.read_config(env)
+    return map_utils.get_map_filename(config, absolute = True)
 
 def clean_build(env):
     config = utils.read_config(env)
@@ -121,16 +130,30 @@ def clean_build(env):
     build_dir = utils.get_build_directory(config, absolute = True)
     xmsgs_dir = os.path.join(base_dir, "_xmsgs")
     xlnx_auto = os.path.join(base_dir, "xlnx_auto_0_xdb")
+    config_log = os.path.join(base_dir, "config.log")
+    xdevice_details = os.path.join(base_dir, "xilinx_device_details.xml")
+    map_report = "%s_map.xrpt" % config["top_module"]
+    map_report = os.path.join(base_dir, map_report)
+
 
     print "Removing Directories:"
     print "\t%s" % build_dir
     print "\t%s" % xmsgs_dir
     print "\t%s" % xlnx_auto
+    print "\t%s" % config_log
+    print "\t%s" % xdevice_details
+    print "\t%s" % map_report
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     if os.path.exists(xmsgs_dir):
         shutil.rmtree(xmsgs_dir)
     if os.path.exists(xlnx_auto):
         shutil.rmtree(xlnx_auto)
+    if os.path.exists(config_log):
+        os.remove(config_log)
+    if os.path.exists(xdevice_details):
+        os.remove(xdevice_details)
+    if os.path.exists(map_report):
+        os.remove(map_report)
 
 

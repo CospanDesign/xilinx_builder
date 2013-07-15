@@ -40,6 +40,7 @@ xilinx.initialize_environment(env = env,
                               build_tool = "ISE",
                               version_number = "")
 
+
 if clean_build:
   #Create a clean target
   xilinx.clean_build(env)
@@ -48,13 +49,14 @@ if clean_build:
 #get the xst tool
 env.Tool('xst')
 env.Tool('ngd')
+env.Tool('map')
 
 if debug == True:
   d = env.Dictionary()
   keys = d.keys()
   keys.sort()
-  #print "Paths: %s" % str(d['ENV'])
-  print "Tools: %s" % str(d["TOOLS"])
+  print "WSTHIS : %s" % str(d['ENV'])
+  #print "Tools: %s" % str(d["TOOLS"])
   #for key in keys:
   #  print "\t%s: %s" % (key, str(d[key]))
 
@@ -62,9 +64,11 @@ if debug == True:
 #Alias 'xst/ngd' to build the NGC file
 env.Alias("xst", xilinx.get_xst_targets(env))
 env.Alias("ngd", xilinx.get_ngd_targets(env))
+env.Alias("map", xilinx.get_map_targets(env))
 
 ngc_file = env.xst(xilinx.get_xst_targets(env), None)
 ngd_file = env.ngd(xilinx.get_ngd_targets(env), ngc_file)
+map_file = env.map(xilinx.get_map_targets(env), ngd_file)
 
 
 
