@@ -21,7 +21,7 @@
 
 """SConst.Tool.xst
 
-Tool-specific initialization of the Xilinx MAP
+Tool-specific initialization of the Xilinx Place and Router
 
 """
 import SCons.Action
@@ -32,67 +32,66 @@ import SCons.Tool
 import os
 
 import utils
-import map_utils
+import par_utils
 
-def _map_emitter (target, source, env):
+def _par_emitter(target, source, env):
     return target, source
 
-_map_builder = SCons.Builder.Builder(
-    action = SCons.Action.Action("$MAP_COM", "$MAP_COMSTR"),
-    suffix = ".ncd",
-    src_suffix = ".ngd",
-    emitter = _map_emitter)
+_par_builder = SCons.Builder.Builder(
+        action = SCons.Action.Action("$PAR_COM", "$PAR_COMSTR"),
+        suffix = "_par.ncd",
+        src_suffix = ".ncd",
+        emitter = _par_emitter)
 
-class MAPBuilderWarning(SCons.Warnings.Warning):
+class PARBuilderWarning(SCons.Warnings.Warning):
     pass
 
-class MAPBuilderError(MAPBuilderWarning):
+class PARBuilderError(PARBuilderWarning):
     pass
 
 def _detect(env):
     try:
-        return env["MAP_COMMAND"]
+        return env["PAR_COMMAND"]
     except KeyError:
         pass
 
-    map_cmd = env.WhereIs("map")
-    if map_cmd:
-        return map_cmd
+    par_cmd = env.WhereIs("par")
+    if par_cmd:
+        return par_cmd
 
     raise SCons.Errors.StopError(
-            MAPBuilderError,
-            "Could not find map command")
+            PARBuilderError,
+            "could not find par command")
     return None
 
 def generate(env):
-    """Add the map builder to the environment"""
-    env["MAP_COMMAND"] = _detect(env)
+    env["PAR_COMMAND"] = _detect(env)
 
     config = utils.read_config(env)
-    map_utils.create_map_dir(config)
-    map_file = map_utils.get_map_filename(config, absolute = True)
-    flag_string = map_utils.get_build_flags_string(config)
+    par_utils.create_par_dir(config)
+    par_file = par_utils.get_par_filename(config)
+    flag_string = par_utils.get_build_flags_string(config)
 
     env.SetDefault(
-        MAP_OUTFILE = map_file,
-        MAP_FLAGSTRING = flag_string,
-        MAP_COM = "$MAP_COMMAND $MAP_FLAGSTRING $MAP_SOURCES"
+        PAR_OUTFILE = par_file,
+        PAR_FLAGSTRING = flag_string,
+        PAR_COM = "$PAR_COMMAND $PAR_FLAGSTRING $PAR_SOURCES $PAR_TARGETS"
     )
-    env.AddMethod(MAP, 'map')
+    env.AddMethod(PAR, 'par')
     return None
+
 
 def exists(env):
     return _detect(env)
 
-def MAP(env, target, source):
+def PAR(env, target, source):
     """
-    A pseudo-builder wrapper for the Xilinx map
+    A pseudo-builder wrapper for the Xilinx par
     """
     config = utils.read_config(env)
+    env["PAR_SOURCES"] = source
+    env["PAR_TARGETS"] = target
 
-    env["MAP_SOURCES"] = source
-    env["MAP_TARGETS"] = target
+    _par_builder.__call__(env, target, source)
 
-    _map_builder.__call__(env, target, source)
-    return map_utils.get_map_filename(config)
-
+    return par_utils.get_par_filename(config)

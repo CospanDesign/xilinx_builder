@@ -50,6 +50,7 @@ if clean_build:
 env.Tool('xst')
 env.Tool('ngd')
 env.Tool('map')
+env.Tool('par')
 
 if debug == True:
   d = env.Dictionary()
@@ -60,15 +61,16 @@ if debug == True:
   #for key in keys:
   #  print "\t%s: %s" % (key, str(d[key]))
 
-
-#Alias 'xst/ngd' to build the NGC file
+#Alias recognizable builder commands
 env.Alias("xst", xilinx.get_xst_targets(env))
 env.Alias("ngd", xilinx.get_ngd_targets(env))
 env.Alias("map", xilinx.get_map_targets(env))
+env.Alias("par", xilinx.get_par_targets(env))
 
 ngc_file = env.xst(xilinx.get_xst_targets(env), None)
 ngd_file = env.ngd(xilinx.get_ngd_targets(env), ngc_file)
 map_file = env.map(xilinx.get_map_targets(env), ngd_file)
+par_file = env.par(xilinx.get_par_targets(env), map_file)
 
 
 

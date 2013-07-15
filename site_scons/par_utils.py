@@ -24,16 +24,15 @@ import json
 
 import utils
 
-MAP_DEFAULT_FLAG_FILE = "map_default_flags.json"
-MAP_DIR = "map"
+PAR_DEFAULT_FLAG_FILE = "par_default_flags.json"
+PAR_DIR = "par"
 
-
-def get_map_flags(config):
+def get_par_flags(config):
     """
-    Given a configuration dictionary return flags for the MAP build
+    Given a configuration dictionary return flags for the PAR build
     if user flags are not specified take the default flags from
 
-    site_scons/map_default_flags.json
+    site_scons/par_default_flags.json
 
     Args:
         config (dictionary): configuration dictionary
@@ -46,30 +45,27 @@ def get_map_flags(config):
     """
     flags = {}
     user_flags = {}
-    if "map" in config.keys():
-        if "flags" in config["map"].keys():
-            user_flags = config["map"]["flags"]
-    fn = os.path.join(os.path.dirname(__file__), MAP_DEFAULT_FLAG_FILE)
+    if "par" in config.keys():
+        if "flags" in config["par"].keys():
+            user_flags = config["par"]["flags"]
+    fn = os.path.join(os.path.dirname(__file__), PAR_DEFAULT_FLAG_FILE)
 
     default_flags = json.load(open(fn, "r"))
-    default_flags["-p"]["value"] = config["device"]
-    default_flags["-o"]["value"] = get_map_filename(config, absolute = True)
     for key in default_flags:
         flags[key] = default_flags[key]
         if key in user_flags.keys():
             flags[key]["value"] = user_flags[key]
     return flags
 
-
-def create_map_dir(config):
+def create_par_dir(config):
     """
-    Create an map directory in the build folder
+    Create an par directory in the build folder
 
     Args:
         config (dictionary): configuration dictionary
 
     Return:
-        (string): map output directory (relative)
+        (string): par output directory (relative)
 
     Raises:
         Nothing
@@ -78,13 +74,13 @@ def create_map_dir(config):
     build_dir = utils.create_build_directory(config)
     #Now I have an output directory to put stuff in
     #Create an XST directory to put stuff related to XST
-    map_dir = os.path.join(build_dir, MAP_DIR)
-    if not os.path.exists(map_dir):
-        os.makedirs(map_dir)
-    return map_dir
+    par_dir = os.path.join(build_dir, PAR_DIR)
+    if not os.path.exists(par_dir):
+        os.makedirs(par_dir)
+    return par_dir
 
-def get_map_dir(config, absolute = False):
-    """Returns the map output directory location
+def get_par_dir(config, absolute = False):
+    """Returns the par output directory location
 
     Args:
         config (dictionary): configuration dictionary
@@ -99,16 +95,16 @@ def get_map_dir(config, absolute = False):
         Nothing
     """
     build_dir = utils.get_build_directory(config, absolute)
-    map_dir = os.path.join(build_dir, MAP_DIR)
-    return map_dir
+    par_dir = os.path.join(build_dir, PAR_DIR)
+    return par_dir
 
-def get_map_filename(config, absolute=False):
+def get_par_filename(config, absolute=False):
     """get the output filename"""
-    map_dir = get_map_dir(config, absolute)
+    par_dir = get_par_dir(config, absolute)
     top_module = config["top_module"]
-    map_file = os.path.join(map_dir, "%s.ncd" % top_module)
-    #print "map filename: %s" % map_file
-    return map_file
+    par_file = os.path.join(par_dir, "%s_par.ncd" % top_module)
+    #print "par filename: %s" % par_file
+    return par_file
 
 def get_build_flags_string(config):
     """Returns the flags for the build
@@ -123,7 +119,7 @@ def get_build_flags_string(config):
         Nothing
     """
     flag_string = " "
-    flags = get_map_flags(config)
+    flags = get_par_flags(config)
     for flag in flags:
         if len(flags[flag]["value"]) == 0:
             continue

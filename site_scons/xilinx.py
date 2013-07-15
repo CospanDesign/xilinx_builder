@@ -28,6 +28,7 @@ import utils
 import xst_utils
 import ngd_utils
 import map_utils
+import par_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -124,6 +125,10 @@ def get_map_targets(env):
     config = utils.read_config(env)
     return map_utils.get_map_filename(config, absolute = True)
 
+def get_par_targets(env):
+    config = utils.read_config(env)
+    return par_utils.get_par_filename(config, absolute = True)
+
 def clean_build(env):
     config = utils.read_config(env)
     base_dir = utils.get_project_base()
@@ -135,6 +140,10 @@ def clean_build(env):
     map_report = "%s_map.xrpt" % config["top_module"]
     map_report = os.path.join(base_dir, map_report)
 
+    par_usage = os.path.join(base_dir, "par_usage_statistics.html")
+    par_report = "%s_par.xrpt" % config["top_module"]
+    par_report = os.path.join(base_dir, par_report)
+
 
     print "Removing Directories:"
     print "\t%s" % build_dir
@@ -143,6 +152,9 @@ def clean_build(env):
     print "\t%s" % config_log
     print "\t%s" % xdevice_details
     print "\t%s" % map_report
+    print "\t%s" % par_usage
+    print "\t%s" % par_report
+
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     if os.path.exists(xmsgs_dir):
@@ -155,5 +167,10 @@ def clean_build(env):
         os.remove(xdevice_details)
     if os.path.exists(map_report):
         os.remove(map_report)
+    if os.path.exists(par_usage):
+        os.remove(par_usage)
+    if os.path.exists(par_report):
+        os.remove(par_report)
+
 
 

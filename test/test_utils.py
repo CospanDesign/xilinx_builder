@@ -16,6 +16,7 @@ class Test (unittest.TestCase):
         self.dbg = False
         self.env = {}
         self.env["CONFIG_FILE"] = "config.json"
+        self.env["ENV"] = {}
 
 
     def test_get_xilinx_tool_types(self):

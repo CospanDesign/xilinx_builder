@@ -30,6 +30,7 @@ class Test (unittest.TestCase):
 
     def test_initialize_environment(self):
         env = env_dict()
+        env["ENV"] = {}
         xilinx.initialize_environment(env)
         #print "Env: %s" % env["PATH"]
 

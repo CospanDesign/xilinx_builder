@@ -20,5 +20,15 @@
   "ngd":{
     "flags":{
     }
+  },
+  "map":{
+    "flags":{
+    }
+  },
+  "par":{
+    "flags":{
+      "-ol":"std",
+      "-xe":"n"
+    }
   }
 }
