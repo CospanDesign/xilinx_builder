@@ -57,7 +57,7 @@ def get_ngd_flags(config):
     default_flags = json.load(open(fn, "r"))
     default_flags["-dd"]["value"] = get_ngd_dir(config)
     default_flags["-p"]["value"] = config["device"]
-    default_flags["-uc"]["value"] = get_ucf_filename(config)
+    default_flags["-uc"]["value"] = create_ucf_filename(config)
     for key in default_flags:
         flags[key] = default_flags[key]
         if key in user_flags.keys():
@@ -113,7 +113,7 @@ def get_ngd_filename(config, absolute = False):
     #print "ngd filename: %s" % ngd_file
     return ngd_file
 
-def get_ucf_filename(config):
+def create_ucf_filename(config):
     """
     find all UCF files assoicated with this project
 
@@ -151,6 +151,12 @@ def get_ucf_filename(config):
         fp.write(os.linesep)
     
     fp.close()
+    return p_ucf_fn
+
+def get_ucf_filename(config):
+    """Return the name of the project ucf file"""
+    ngd_dir = get_ngd_dir(config, absolute = True)
+    p_ucf_fn = os.path.join(ngd_dir, NGD_PROJECT_UCF)
     return p_ucf_fn
     
 def _get_ucf_files(path):

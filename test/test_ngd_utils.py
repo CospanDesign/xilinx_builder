@@ -40,9 +40,9 @@ class Test (unittest.TestCase):
         flag_string = ngd_utils.get_build_flags_string(config)
         print "flag string: %s" % flag_string
 
-    def test_get_ucf_filename(self):
+    def test_create_ucf_filename(self):
         config = self.config
-        ucf_filename = ngd_utils.get_ucf_filename(config)
+        ucf_filename = ngd_utils.create_ucf_filename(config)
         #print "ucf_filename: %s" % ucf_filename
 
 if __name__ == "__main__":

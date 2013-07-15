@@ -51,6 +51,7 @@ env.Tool('xst')
 env.Tool('ngd')
 env.Tool('map')
 env.Tool('par')
+env.Tool('trace')
 
 if debug == True:
   d = env.Dictionary()
@@ -66,11 +67,13 @@ env.Alias("xst", xilinx.get_xst_targets(env))
 env.Alias("ngd", xilinx.get_ngd_targets(env))
 env.Alias("map", xilinx.get_map_targets(env))
 env.Alias("par", xilinx.get_par_targets(env))
+env.Alias("trace", xilinx.get_trace_targets(env))
 
 ngc_file = env.xst(xilinx.get_xst_targets(env), None)
 ngd_file = env.ngd(xilinx.get_ngd_targets(env), ngc_file)
 map_file = env.map(xilinx.get_map_targets(env), ngd_file)
 par_file = env.par(xilinx.get_par_targets(env), map_file)
+trace_file = env.trace(xilinx.get_trace_targets(env), par_file)
 
 
 

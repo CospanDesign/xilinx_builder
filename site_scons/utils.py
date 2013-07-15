@@ -455,4 +455,3 @@ def get_build_directory(config, absolute = False):
 
     return build_dir
 
-

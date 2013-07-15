@@ -29,6 +29,7 @@ import xst_utils
 import ngd_utils
 import map_utils
 import par_utils
+import trace_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -128,6 +129,10 @@ def get_map_targets(env):
 def get_par_targets(env):
     config = utils.read_config(env)
     return par_utils.get_par_filename(config, absolute = True)
+
+def get_trace_targets(env):
+    config = utils.read_config(env)
+    return trace_utils.get_trace_filename(config, absolute = True)
 
 def clean_build(env):
     config = utils.read_config(env)
