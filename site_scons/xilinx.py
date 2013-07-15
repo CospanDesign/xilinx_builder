@@ -120,12 +120,17 @@ def clean_build(env):
     base_dir = utils.get_project_base()
     build_dir = utils.get_build_directory(config, absolute = True)
     xmsgs_dir = os.path.join(base_dir, "_xmsgs")
+    xlnx_auto = os.path.join(base_dir, "xlnx_auto_0_xdb")
 
     print "Removing Directories:"
     print "\t%s" % build_dir
     print "\t%s" % xmsgs_dir
+    print "\t%s" % xlnx_auto
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     if os.path.exists(xmsgs_dir):
         shutil.rmtree(xmsgs_dir)
+    if os.path.exists(xlnx_auto):
+        shutil.rmtree(xlnx_auto)
+
 
