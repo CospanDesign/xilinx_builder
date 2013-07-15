@@ -87,7 +87,7 @@ def _detect(env):
 def generate(env):
     """add the correct xst builder to the environement"""
     #Everything I need should be within the env
-    print "In generate function"
+    #print "In generate function"
     env["XST_COMMAND"] = _detect(env)
     #get the configuration file name
     #fn = env["CONFIG_FILE"]
@@ -136,7 +136,9 @@ def XST(env, target, source):
     Executes the build
 
     Args:
-        Scons Environment
+        env (SCons Environment)
+        target (list of strings)
+        source (list of strings) 
 
     Returns:
         The output file list

@@ -47,6 +47,7 @@ if clean_build:
 
 #get the xst tool
 env.Tool('xst')
+env.Tool('ngd')
 
 if debug == True:
   d = env.Dictionary()
@@ -58,9 +59,16 @@ if debug == True:
   #  print "\t%s: %s" % (key, str(d[key]))
 
 
-#Alias 'xst' to build the NGC file
+#Alias 'xst/ngd' to build the NGC file
 env.Alias("xst", xilinx.get_xst_targets(env))
-env.xst(xilinx.get_xst_targets(env), None)
+env.Alias("ngd", xilinx.get_ngd_targets(env))
+
+ngc_file = env.xst(xilinx.get_xst_targets(env), None)
+ngd_file = env.ngd(xilinx.get_ngd_targets(env), ngc_file)
+
+
+
+
 
 
 

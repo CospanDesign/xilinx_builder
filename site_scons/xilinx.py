@@ -25,6 +25,7 @@ import string
 
 import utils
 import xst_utils
+import ngd_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -108,6 +109,10 @@ def get_xst_targets(env):
     """
     config = utils.read_config(env)
     return xst_utils.get_ngc_filename(config, absolute = True)
+
+def get_ngd_targets(env):
+    config = utils.read_config(env)
+    return ngd_utils.get_ngd_filename(config, absolute = True)
 
 
 def clean_build(env):

@@ -19,7 +19,7 @@ class Test (unittest.TestCase):
         self.env = {}
         self.env["CONFIG_FILE"] = "config.json"
 
-    def test_get_xilinx_tool_types(self):
+    def test_get_xst_flags(self):
         """generate a define table given a file"""
         config_fn = os.path.join(utils.get_project_base(), "config.json")
         config = json.load(open(config_fn, "r"))

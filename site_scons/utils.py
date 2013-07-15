@@ -156,6 +156,19 @@ def read_config(env):
                 vpaths.extend(vfs)
 
         config["verilog"] = vpaths
+
+    #Check to see if the XST flags exists
+    if "xst" not in config.keys():
+        config["xst"] = {}
+    if "flags" not in config["xst"]:
+        config["xst"]["flags"] = {}
+
+    #Check to see if the NGD flags exist
+    if "ngd" not in config.keys():
+        config["ngd"] = {}
+    if "flags" not in config["ngd"]:
+        config["ngd"]["flags"] = {}
+
     return config
 
 def _get_vfiles(path):

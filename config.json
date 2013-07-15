@@ -16,5 +16,9 @@
     "flags":{
       "-iob":"Auto"
     }
+  },
+  "ngd":{
+    "flags":{
+    }
   }
 }

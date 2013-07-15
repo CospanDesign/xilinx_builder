@@ -175,12 +175,20 @@ def get_report_filename(config):
     output_file = os.path.join(xst_abs_dir, "%s.syr" % top_module)
     return output_file
 
+def get_xst_filename(config, absolute = False):
+    """get the output filename"""
+    xst_dir = get_xst_dir(config, absolute)
+    top_module = config["top_module"]
+    xst_file = os.path.join(xst_dir, "%s.xst" % top_module)
+    #print "xst filename: %s" % xst_file
+    return xst_file
+
 def get_ngc_filename(config, absolute = False):
     """get the output filename"""
     xst_dir = get_xst_dir(config, absolute)
     top_module = config["top_module"]
     ngc_file = os.path.join(xst_dir, "%s.ngc" % top_module)
-    #print "ngc filename: %s" % ngc_file
+    #print "xst filename: %s" % xst_file
     return ngc_file
 
 def create_lso_file(config):
