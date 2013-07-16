@@ -94,5 +94,6 @@ def MAP(env, target, source):
     env["MAP_TARGETS"] = target
 
     _map_builder.__call__(env, target, source)
+
     return map_utils.get_map_filename(config)
 

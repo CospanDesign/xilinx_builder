@@ -23,9 +23,55 @@ import os
 import json
 
 import utils
+import shutil
 
 MAP_DEFAULT_FLAG_FILE = "map_default_flags.json"
 MAP_DIR = "map"
+
+def smartguide_available(config):
+    """
+    Check to see if there is an .ncd file from a previous build,
+    if so it can be used to speed up the build of the design
+   
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (boolean):
+            True: Available
+            False: Not Available
+
+    Raises:
+        Nothing
+    """
+    #Check to see if the output file exists
+    map_file = get_map_filename(config, absolute = True)
+    
+    if os.path.exists(map_file):
+        sg_file = get_smartguide_filename(config, absolute = True)
+        shutil.copy2(map_file, sg_file)
+        #There is a previous version
+        return True
+
+    return False
+
+def get_smartguide_filename(config, absolute = False):
+    """
+    Get the smartguide filename for map
+
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string):
+
+    Raises:
+        Nothing
+    """
+    map_dir = get_map_dir(config, absolute)
+    map_file = os.path.join(map_dir, "smartguide_map.ncd")
+    #print "map filename: %s" % map_file
+    return map_file
 
 
 def get_map_flags(config):
@@ -54,6 +100,11 @@ def get_map_flags(config):
     default_flags = json.load(open(fn, "r"))
     default_flags["-p"]["value"] = config["device"]
     default_flags["-o"]["value"] = get_map_filename(config, absolute = True)
+    if smartguide_available(config):
+        default_flags["-smartguide"]["value"] = get_smartguide_filename(config, True)
+    else:
+        default_flags["-timing"]["value"] = "_true"
+
     for key in default_flags:
         flags[key] = default_flags[key]
         if key in user_flags.keys():

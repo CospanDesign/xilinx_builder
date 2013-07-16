@@ -23,10 +23,10 @@ class Test (unittest.TestCase):
     def test_get_map_flags(self):
         config = self.config
         flags = map_utils.get_map_flags(config)
-        print "map flags:"
-        for flag in flags:
-            if len(flags[flag]["value"]) > 0:
-                print "\t%s: %s" % (flag, flags[flag]["value"])
+        #print "map flags:"
+        #for flag in flags:
+        #    if len(flags[flag]["value"]) > 0:
+        #        print "\t%s: %s" % (flag, flags[flag]["value"])
 
     def test_create_map_dir(self):
         config = self.config
@@ -38,12 +38,19 @@ class Test (unittest.TestCase):
     def test_get_output_map_file(self):
         config = self.config
         map_fn = map_utils.get_map_filename(config, absolute = True)
-        print "Map Filename: %s" % map_fn
+        #print "Map Filename: %s" % map_fn
 
     def test_get_build_flags_string(self):
         config = self.config
         flag_string = map_utils.get_build_flags_string(config)
-        print "flag string: %s" % flag_string
+        #print "flag string: %s" % flag_string
+
+    def test_smartguide_available(self):
+        config = self.config
+        if map_utils.smartguide_available(config):
+            print "Smartguide available"
+        else:
+            print "Smartguide not available"
 
 if __name__ == "__main__":
   unittest.main()
