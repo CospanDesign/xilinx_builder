@@ -48,9 +48,11 @@ class Test (unittest.TestCase):
     def test_smartguide(self):
         config = self.config
         if par_utils.smartguide_available(config):
-            print "Smartguide Available"
+            #print "Smartguide Available"
+            pass
         else:
-            print "Smartguide Not Available"
+            #print "Smartguide Not Available"
+            pass
 
 
 if __name__ == "__main__":
