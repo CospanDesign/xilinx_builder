@@ -71,6 +71,5 @@ Flags:
 
 Add support for vhdl
 Add support for multiple verilog/VHDL libraries
-Add support for smart guide
 Add support for cores
 Add support for bmm
