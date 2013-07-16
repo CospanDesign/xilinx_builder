@@ -2,8 +2,6 @@
 
 ##Description: sCons based command line tools to interface with Xilinx tools
 
-* * *
-
 ##How to use:
 
 + Edit the config.json file to setup a build environment, the keywords are as
@@ -45,7 +43,7 @@
       this block will override the default vlues set in
         site_scons/bitgen_configuration.json
 
-+ Builde the project by typing either 'scons' to build all targets or scons
++ Build the project by typing either 'scons' to build all targets or scons
   plus a Target (listed below)
   
 
