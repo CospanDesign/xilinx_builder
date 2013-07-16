@@ -155,31 +155,31 @@ def clean_build(env):
     par_report = os.path.join(base_dir, par_report)
 
 
-    print "Removing Directories:"
-    print "\t%s" % build_dir
-    print "\t%s" % xmsgs_dir
-    print "\t%s" % xlnx_auto
-    print "\t%s" % config_log
-    print "\t%s" % xdevice_details
-    print "\t%s" % map_report
-    print "\t%s" % par_usage
-    print "\t%s" % par_report
+    print "Removing Directories/Files:"
 
     if os.path.exists(build_dir):
+        print "\t%s" % build_dir
         shutil.rmtree(build_dir)
     if os.path.exists(xmsgs_dir):
+        print "\t%s" % xmsgs_dir
         shutil.rmtree(xmsgs_dir)
     if os.path.exists(xlnx_auto):
+        print "\t%s" % xlnx_auto
         shutil.rmtree(xlnx_auto)
     if os.path.exists(config_log):
+        print "\t%s" % config_log
         os.remove(config_log)
     if os.path.exists(xdevice_details):
+        print "\t%s" % xdevice_details
         os.remove(xdevice_details)
     if os.path.exists(map_report):
+        print "\t%s" % map_report
         os.remove(map_report)
     if os.path.exists(par_usage):
+        print "\t%s" % par_usage
         os.remove(par_usage)
     if os.path.exists(par_report):
+        print "\t%s" % par_report
         os.remove(par_report)
 
 
