@@ -53,5 +53,31 @@ class Test (unittest.TestCase):
         self.assertTrue(os.path.exists(build_dir))
         os.rmdir(build_dir)
 
+    def test_get_device(self):
+        config = utils.read_config(self.env)
+        config["device"] = "xc6slx9-tqg144-3"
+        device = utils.get_device(config)
+        self.assertEqual("xc6slx9", device)
+
+    def test_get_family(self):
+        config = utils.read_config(self.env)
+        config["device"] = "xc6slx9-tqg144-3"
+        family = utils.get_family(config)
+        self.assertEqual("spartan6", family)
+
+    def test_get_speed_grade(self):
+        config = utils.read_config(self.env)
+        config["device"] = "xc6slx9-tqg144-3"
+        speed = utils.get_speed_grade(config)
+        self.assertEqual("-3", speed)
+
+    def test_get_package(self):
+        config = utils.read_config(self.env)
+        config["device"] = "xc6slx9-tqg144-3"
+        package = utils.get_package(config)
+        self.assertEqual("tqg144", package)
+
+
+
 if __name__ == "__main__":
   unittest.main()

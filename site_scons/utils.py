@@ -24,6 +24,7 @@ import os
 import json
 import platform
 import glob
+import re
 
 
 PROJECT_BASE = os.path.abspath(
@@ -454,4 +455,107 @@ def get_build_directory(config, absolute = False):
         build_dir = os.path.join(get_project_base(), build_dir)
 
     return build_dir
+
+def get_device(config):
+    """ Return the device portion of the part
+    
+    Device portion of an example:
+
+    xc6slx9-tqg144-3: xc6slx9
+
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string) device
+
+    Raises:
+        Nothing
+    """
+    part_string = config["device"]
+    device = part_string.split("-")[0]
+    return device.strip()
+
+def get_family(config):
+    """
+    Returns the family associated with this device
+    
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string) device
+
+    Raises:
+        Nothing
+
+    """
+    #get the device because the family is within there
+    device = get_device(config)
+    #get the substring of the device string that indicates the family
+    if re.search("..32.*an$", device, re.I):
+        return "spartan3a"
+    if re.search("..3s.*A$", device, re.I):
+        return "spartan3a"
+    if re.search("..3s.*E$", device, re.I):
+        return "spartan3e"
+    if re.search("..32.*[0-9]$", device, re.I):
+        return "spartan3"
+    if re.search("..6s", device, re.I):
+        return "spartan6"
+    if re.search("..4v", device, re.I):
+        return "virtex4"
+    if re.search("..5v", device, re.I):
+        return "virtex5"
+    if re.search("..6v", device, re.I):
+        return "virtex6"
+    if re.search("..7v", device, re.I):
+        return "virtex7"
+    if re.search("..7k", device, re.I):
+        return "kintex7"
+    if re.search("..7a", device, re.I):
+        return "artix7"
+    raise ConfigurationError("Device Not Found")
+
+def get_speed_grade(config):
+    """
+    Returns the speed associated with this device
+    
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string) speed code (-1, -2, -3, -1L, etc...)
+
+    Raises:
+        Nothing
+
+    """
+
+    #split the device value with "-" and get the last value
+    #add the '-' back on when it is returned
+    speed = config["device"].split("-")[-1]
+    speed = speed.strip()
+    speed = "-%s" % speed
+    return speed
+
+def get_package(config):
+    """
+    Returns the package associated with this device
+    
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string) package
+
+    Raises:
+        Nothing
+
+    """
+
+    #split the device string with "-" and get the second value
+    package = config["device"].split("-")[1]
+    package = package.strip()
+    return package
 
