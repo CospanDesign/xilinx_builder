@@ -23,19 +23,21 @@ class Test (unittest.TestCase):
     def test_get_flags(self):
         config = self.config
         flags = bitgen_utils.get_flags(config)
-        print "bitgen flags:"
-        for flag in flags:
-            if flag == "configuration":
-                continue
-            if flags[flag] == "_true":
-                print "\t%s" % flag
-                continue
+        #print "bitgen flags:"
+        #for flag in flags:
+        #    if flag == "configuration":
+        #        continue
+        #    if flags[flag] == "_true":
+        #        print "\t%s" % flag
+        #        continue
 
-            if len(flags[flag]["value"]) > 0:
-                print "\t%s: %s" % (flag, flags[flag]["value"])
+        #    if len(flags[flag]["value"]) > 0:
+        #        print "\t%s: %s" % (flag, flags[flag]["value"])
+        #        pass
                 
-        for c in flags["configuration"]:
-            print "\t%s" % c
+        #for c in flags["configuration"]:
+        #    print "\t%s" % c
+        #    pass
 
     def test_create_bitgen_dir(self):
         config = self.config
@@ -47,14 +49,14 @@ class Test (unittest.TestCase):
     def test_get_output_bitgen_file(self):
         config = self.config
         bitgen_fn = bitgen_utils.get_bitgen_filename(config, absolute = True)
-        print "Bitgen Filename: %s" % bitgen_fn
+        #print "Bitgen Filename: %s" % bitgen_fn
 
     def test_create_script(self):
         config = self.config
         script_fn = bitgen_utils.create_script(config)
         script = open(script_fn, "r")
-        print "Bitgen Script Contents:"
-        print script.read()
+        #print "Bitgen Script Contents:"
+        #print script.read()
         script.close()
 
 

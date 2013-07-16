@@ -23,10 +23,10 @@ class Test (unittest.TestCase):
     def test_get_par_flags(self):
         config = self.config
         flags = par_utils.get_par_flags(config)
-        print "par flags:"
-        for flag in flags:
-            if len(flags[flag]["value"]) > 0:
-                print "\t%s: %s" % (flag, flags[flag]["value"])
+        #print "par flags:"
+        #for flag in flags:
+        #    if len(flags[flag]["value"]) > 0:
+        #        print "\t%s: %s" % (flag, flags[flag]["value"])
 
     def test_create_par_dir(self):
         config = self.config
@@ -38,12 +38,12 @@ class Test (unittest.TestCase):
     def test_get_output_par_file(self):
         config = self.config
         par_fn = par_utils.get_par_filename(config, absolute = True)
-        print "Map Filename: %s" % par_fn
+        #print "Map Filename: %s" % par_fn
 
     def test_get_build_flags_string(self):
         config = self.config
         flag_string = par_utils.get_build_flags_string(config)
-        print "flag string: %s" % flag_string
+        #print "flag string: %s" % flag_string
 
 if __name__ == "__main__":
   unittest.main()

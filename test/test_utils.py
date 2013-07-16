@@ -42,7 +42,7 @@ class Test (unittest.TestCase):
 
     def test_find_license_dir(self):
         path = utils.find_license_dir()
-        print "License File Location: %s" % path
+        #print "License File Location: %s" % path
 
     def test_create_build_directory(self):
         cfg = utils.read_config(self.env)

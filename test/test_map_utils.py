@@ -48,9 +48,11 @@ class Test (unittest.TestCase):
     def test_smartguide_available(self):
         config = self.config
         if map_utils.smartguide_available(config):
-            print "Smartguide available"
+            #print "Smartguide available"
+            pass
         else:
-            print "Smartguide not available"
+            #print "Smartguide not available"
+            pass
 
 if __name__ == "__main__":
   unittest.main()

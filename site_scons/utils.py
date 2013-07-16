@@ -275,7 +275,7 @@ def find_license_dir(path = ""):
             search_path = os.path.join(xilinx_dir, "*.lic")
             results = glob.glob(search_path)
             if len(search_path) > 0:
-                print "Found directory: %s, results: %s" % (xilinx_dir, str(results[0]))
+                #print "Found directory: %s, results: %s" % (xilinx_dir, str(results[0]))
                 return search_path
 
         raise ConfiugrationError("Error unable to find Xilinx Lincense File")

@@ -38,7 +38,7 @@ class Test (unittest.TestCase):
     def test_get_build_flags_string(self):
         config = self.config
         flag_string = ngd_utils.get_build_flags_string(config)
-        print "flag string: %s" % flag_string
+        #print "flag string: %s" % flag_string
 
     def test_create_ucf_filename(self):
         config = self.config

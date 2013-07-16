@@ -23,10 +23,10 @@ class Test (unittest.TestCase):
     def test_get_trace_flags(self):
         config = self.config
         flags = trace_utils.get_trace_flags(config)
-        print "trace flags:"
-        for flag in flags:
-            if len(flags[flag]["value"]) > 0:
-                print "\t%s: %s" % (flag, flags[flag]["value"])
+        #print "trace flags:"
+        #for flag in flags:
+        #    if len(flags[flag]["value"]) > 0:
+        #        print "\t%s: %s" % (flag, flags[flag]["value"])
 
     def test_create_trace_dir(self):
         config = self.config
@@ -38,17 +38,17 @@ class Test (unittest.TestCase):
     def test_get_output_trace_file(self):
         config = self.config
         trace_fn = trace_utils.get_trace_filename(config, absolute = True)
-        print "Trace Filename: %s" % trace_fn
+        #print "Trace Filename: %s" % trace_fn
 
     def test_get_build_flags_string(self):
         config = self.config
         flag_string = trace_utils.get_build_flags_string(config)
-        print "trace flag string: %s" % flag_string
+        #print "trace flag string: %s" % flag_string
 
     def test_get_trace_xml_filename(self):
         config = self.config
         xml_filename = trace_utils.get_trace_xml_filename(config)
-        print "trace xml filename: %s" % xml_filename
+        #print "trace xml filename: %s" % xml_filename
 
 if __name__ == "__main__":
   unittest.main()
