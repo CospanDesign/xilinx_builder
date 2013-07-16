@@ -32,66 +32,64 @@ import SCons.Tool
 import os
 
 import utils
-import trace_utils
+import bitgen_utils
 
-def _trace_emitter(target, source, env):
+def _bitgen_emitter(target, source, env):
     return target, source
 
-_trace_builder = SCons.Builder.Builder(
-        action = SCons.Action.Action("$TRACE_COM", "$TRACE_COMSTR"),
-        suffix = ".twr",
+_bitgen_builder = SCons.Builder.Builder(
+        action = SCons.Action.Action("$BITGEN_COM", "$BITGEN_COMSTR"),
+        suffix = ".bit",
         src_suffix = "_par.ncd",
-        emitter = _trace_emitter)
+        emitter = _bitgen_emitter)
 
-class TRACEBuilderWarning(SCons.Warnings.Warning):
+class BITGENBuilderWarning(SCons.Warnings.Warning):
     pass
 
-class TRACEBuilderError(TRACEBuilderWarning):
+class BITGENBuilderError(BITGENBuilderWarning):
     pass
 
 def _detect(env):
     try:
-        return env["TRACE_COMMAND"]
+        return env["BITGEN_COMMAND"]
     except KeyError:
         pass
 
-    trace_cmd = env.WhereIs("trce")
-    if trace_cmd:
-        return trace_cmd
+    bitgen_command = env.WhereIs("bitgen")
+    if bitgen_command:
+        return bitgen_command
 
     raise SCons.Errors.StopError(
-            TRACEBuilderError,
-            "could not find trce command"
-    )
+            BITGENBuilderError,
+            "could not find bitgen command")
     return None
 
 def generate(env):
-    env["TRACE_COMMAND"] = _detect(env)
+    env["BITGEN_COMMAND"] = _detect(env)
     config = utils.read_config(env)
-    trace_utils.create_trace_dir(config)
-    trace_file = trace_utils.get_trace_filename(config)
-    flag_string = trace_utils.get_build_flags_string(config)
+    bitgen_utils.create_bitgen_dir(config)
+    bitgen_file = bitgen_utils.get_bitgen_filename(config)
+    script_file = bitgen_utils.create_script(config)
 
     env.SetDefault(
-            TRACE_OUTFILE = trace_file,
-            TRACE_FLAGSTRING = flag_string,
-            TRACE_COM = "$TRACE_COMMAND $TRACE_FLAGSTRING $TRACE_SOURCES",
-            TRACE_COMSTR = ""
+            BITGEN_OUTFILE = bitgen_file,
+            BITGEN_SCRIPT_NAME = script_file,
+            BITGEN_COM = "$BITGEN_COMMAND -f $BITGEN_SCRIPT_NAME $BITGEN_SOURCES $BITGEN_OUTFILE",
+            BITGEN_COMSTR = ""
     )
-    env.AddMethod(TRACE, 'trace')
+    env.AddMethod(BITGEN, "bitgen")
     return None
 
 def exists(env):
     return _detect(env)
 
-def TRACE(env, target, source):
+def BITGEN(env, target, source):
     """
-    A pseudo-builder wrapper for Xilinx trace
+    A pseudo-builder wrapper for Xilinx Bitgen
     """
     config = utils.read_config(env)
-    env["TRACE_SOURCES"] = source
-    env["TRACE_TARGETS"] = target
-
-    _trace_builder.__call__(env, target, source)
-    return trace_utils.get_trace_filename(config)
+    env["BITGEN_SOURCES"] = source
+    env["BITGEN_TARGETS"] = target
+    _bitgen_builder.__call__(env, target, source)
+    return bitgen_utils.get_bitgen_filename(config)
 

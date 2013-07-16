@@ -230,10 +230,10 @@ def create_xst_script(config):
         config (dictionary): configuraiton dictionary
 
     Return:
-        Nothing
+        (string) script file name
 
     Raises:
-        (string) script file name
+        Nothing
     """
     xst_abs_dir = create_xst_dir(config)
     flags = get_xst_flags(config)

@@ -30,6 +30,7 @@ import ngd_utils
 import map_utils
 import par_utils
 import trace_utils
+import bitgen_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -133,6 +134,10 @@ def get_par_targets(env):
 def get_trace_targets(env):
     config = utils.read_config(env)
     return trace_utils.get_trace_filename(config, absolute = True)
+
+def get_bitgen_targets(env):
+    config = utils.read_config(env)
+    return bitgen_utils.get_bitgen_filename(config, absolute = True)
 
 def clean_build(env):
     config = utils.read_config(env)

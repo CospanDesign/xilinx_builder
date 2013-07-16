@@ -30,5 +30,16 @@
       "-ol":"std",
       "-xe":""
     }
+  },
+  "trace":{
+    "flags":{
+    }
+  },
+  "bitgen":{
+    "flags":{
+    },
+    "config":{
+      "Binary":"yes"
+    }
   }
 }
