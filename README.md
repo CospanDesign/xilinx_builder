@@ -1,10 +1,12 @@
-#Project: Xilinx Builder
+#Xilinx Builder
 
-#Goal: sCons based command line tools to interface with Xilinx tools
+##Description: sCons based command line tools to interface with Xilinx tools
 
-#How to use:
+* * *
 
-Edit the config.json file to setup a build environment, the keywords are as
+##How to use:
+
++ Edit the config.json file to setup a build environment, the keywords are as
     follows:
   * name: Name of the project to be created ex: "project"
   * build\_dir: Output directory of the project ex: "build"
@@ -43,9 +45,13 @@ Edit the config.json file to setup a build environment, the keywords are as
       this block will override the default vlues set in
         site_scons/bitgen_configuration.json
 
-#Command Line Options:
++ Builde the project by typing either 'scons' to build all targets or scons
+  plus a Target (listed below)
+  
 
-Targets:
+##Command Line Options:
+
+###Targets:
   * xst: synthesize (verilog, [cores]) -> .ncd
   * ngd\_build: netlist translation (from abstract constructs to Xilinx 
       specific constructs)
@@ -60,14 +66,16 @@ Targets:
   * trace: analyzing the design for timing violations
       (_par.ncd -> .twr)
 
-Flags:
+###Flags:
   * --debug\_build: view debug messages helpful to debug the builder
   * --config\_file: specify a different configuration file than 'config.json'
   * --clean\_build: remove all directories create by the build process
     config["build\_dir"] directory
     _xmsgs directory
 
-#To Do:
+* * *
+
+##To Do:
 
   * Add support for vhdl
   * Add support for multiple verilog/VHDL libraries
