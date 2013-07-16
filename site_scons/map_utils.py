@@ -27,6 +27,7 @@ import shutil
 
 MAP_DEFAULT_FLAG_FILE = "map_default_flags.json"
 MAP_DIR = "map"
+SMARTGUIDE_NAME = "smartguide_map.ncd"
 
 def smartguide_available(config):
     """
@@ -63,13 +64,13 @@ def get_smartguide_filename(config, absolute = False):
         config (dictionary): configuration dictionary
 
     Return:
-        (string):
+        (string): smartguide filename
 
     Raises:
         Nothing
     """
     map_dir = get_map_dir(config, absolute)
-    map_file = os.path.join(map_dir, "smartguide_map.ncd")
+    map_file = os.path.join(map_dir, SMARTGUIDE_NAME)
     #print "map filename: %s" % map_file
     return map_file
 

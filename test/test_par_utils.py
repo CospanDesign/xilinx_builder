@@ -45,6 +45,14 @@ class Test (unittest.TestCase):
         flag_string = par_utils.get_build_flags_string(config)
         #print "flag string: %s" % flag_string
 
+    def test_smartguide(self):
+        config = self.config
+        if par_utils.smartguide_available(config):
+            print "Smartguide Available"
+        else:
+            print "Smartguide Not Available"
+
+
 if __name__ == "__main__":
   unittest.main()
 

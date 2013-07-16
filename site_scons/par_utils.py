@@ -21,11 +21,53 @@
 
 import os
 import json
+import shutil
 
 import utils
 
 PAR_DEFAULT_FLAG_FILE = "par_default_flags.json"
 PAR_DIR = "par"
+SMARTGUIDE_NAME = "smartguide_par.ncd"
+
+
+def smartguide_available(config):
+    """
+    Check to see if there is an _par.ncd file from a previous build,
+    if so it can be used to speed up the build of the design
+   
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (boolean):
+            True: Available
+            False: Not Available
+
+    Raises:
+        Nothing
+    """
+    par_file = get_par_filename(config, absolute = True)
+    if os.path.exists(par_file):
+        sg_file = get_smartguide_filename(config, absolute = True)
+        shutil.copy2(par_file, sg_file)
+        return True
+    return False
+
+def get_smartguide_filename(config, absolute = False):
+    """
+    Get the smartguide filename for par
+
+    Args:
+        config (dictionary): configuration dictionary
+
+    Return:
+        (string): smartguide filename
+
+    Raises:
+        Nothing
+    """
+    par_dir = get_par_dir(config, absolute = True)
+    return os.path.join(par_dir, SMARTGUIDE_NAME)
 
 def get_par_flags(config):
     """
@@ -51,6 +93,11 @@ def get_par_flags(config):
     fn = os.path.join(os.path.dirname(__file__), PAR_DEFAULT_FLAG_FILE)
 
     default_flags = json.load(open(fn, "r"))
+
+    #if we can do smart guide go for it
+    #if smartguide_available(config):
+    #    default_flags["-smartguide"]["value"] = get_smartguide_filename(config, True)
+
     for key in default_flags:
         flags[key] = default_flags[key]
         if key in user_flags.keys():
