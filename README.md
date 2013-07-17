@@ -102,7 +102,7 @@ For example if you generated a complex multiplier for use with a
 xc6slx4-tgq144-2 part and you are currently building for a xc6slx9-tqg144-3
 part the tool will fix the necessary project settings and generate your core.
 
-###Exampel:
+###Example:
 If you named the complex multiplier cm in coregen, it will output
 a lot of files two of them being cm.xco and cm.v. Put cm.xco in the 'cores'
 directory and 'cm.v' in the rtl directory.
@@ -112,14 +112,14 @@ directory and 'cm.v' in the rtl directory.
 
 ##To Do:
 
-  [x] Add support for vhdl
+  [x] Add support for vhdl  
   [x] Add Support for SmartGuide (reusing previous builds to speed up new
-      builds)
-  [ ] Add support for multiple verilog/VHDL libraries
-  [x] Add support for cores
-  [ ] Add support for bmm
-  [ ] Test build environment on 32-bit Linux Box
-  [ ] Test build environment on 32-bit Windows Box
-  [ ] Test build environemnt on 64-bit Windows Box
+      builds)  
+  [ ] Add support for multiple verilog/VHDL libraries  
+  [x] Add support for cores  
+  [ ] Add support for bmm  
+  [ ] Test build environment on 32-bit Linux Box  
+  [ ] Test build environment on 32-bit Windows Box  
+  [ ] Test build environemnt on 64-bit Windows Box  
 
 
