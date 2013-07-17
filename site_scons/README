@@ -3,6 +3,14 @@ Developer Notes:
 I am new to sCons so if you have any insite please feel free to
 email me @ dave.mccoy@cospandesign.com
 
+This sCons build tool is based off of the page
+
+scons.org/wiki/ToolsForFools
+
+Thank you so much for this page, it helped a lot!
+
+
+
 Adding support for a new tool (eg Data2Mem, hint hint future Dave):
 
 Here are the steps that I found works

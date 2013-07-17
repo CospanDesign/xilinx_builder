@@ -43,6 +43,14 @@
       this block will override the default vlues set in
         site_scons/bitgen_configuration.json
 
+  * NOTE: by setting a flag to "\_true" then the flag will be inserted as
+  a standalone flag: eg "-my\_flag":"\_true" will show up as:
+  ...-my\_flag... for the tool, NOT ...-my\_flag \_true...
+  * NOTE: Do not specify a flag to allow the default flags to override
+  (the default flags can be viewed in site\_scons/??\_default\_flags.json)
+  * NOTE: Setting a flag to blank will override the default flag with
+  nothing
+
 + Build the project by typing either 'scons' to build all targets or scons
   plus a Target (listed below)
   
@@ -50,6 +58,7 @@
 ##Command Line Options:
 
 ###Targets:
+  * cores: generate cores in the cores directory (cores -> .ngc)
   * xst: synthesize (verilog, [cores]) -> .ncd
   * ngd\_build: netlist translation (from abstract constructs to Xilinx 
       specific constructs)
@@ -71,16 +80,46 @@
     config["build\_dir"] directory
     _xmsgs directory
 
+
+* * *
+##Notes About Cores:
+Cores are very useful and can add a lot of functionality to code here is how
+to use them in this build environment.
+
+Use Coregen GUI to generate your core. It's alright if the part number/family
+doesn't match up with the final build the build tool will fix this (Just make
+sure that your device can accomodate the core, i.e. don't put a PCIE core
+on a spartan 3)
+
+After coregen generates your core copy the (core\_name).xco (as is) to the 
+'cores' directory. copy the (core\_name).v file to the rtl directory. This is
+the interface to your core. It looks strange becaus the sythesis implementation
+only declares ports and parameters but this is like a header file in c where
+the synthesizer will know to look for an NGC file created by coregen to
+attach the backend of that module to.
+
+For example if you generated a complex multiplier for use with a
+xc6slx4-tgq144-2 part and you are currently building for a xc6slx9-tqg144-3
+part the tool will fix the necessary project settings and generate your core.
+
+###Exampel:
+If you named the complex multiplier cm in coregen, it will output
+a lot of files two of them being cm.xco and cm.v. Put cm.xco in the 'cores'
+directory and 'cm.v' in the rtl directory.
+
+
 * * *
 
 ##To Do:
 
   [x] Add support for vhdl
-  [x] Add Support for SmartGuide (reusing previous builds to speed up new builds)
+  [x] Add Support for SmartGuide (reusing previous builds to speed up new
+      builds)
   [ ] Add support for multiple verilog/VHDL libraries
   [x] Add support for cores
   [ ] Add support for bmm
   [ ] Test build environment on 32-bit Linux Box
   [ ] Test build environment on 32-bit Windows Box
   [ ] Test build environemnt on 64-bit Windows Box
+
 
