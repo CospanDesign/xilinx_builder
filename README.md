@@ -10,48 +10,48 @@
   * build\_dir: Output directory of the project ex: "build"
   * device: Device part number ex: "xc6slx9-tqg144-3"
   * verilog: A list of verilog files or paths
-    * If the entry is a directory then all items in the diretory will be added
-      * If the "recursive" flag is set to true then it will also be recusively
+    - If the entry is a directory then all items in the diretory will be added
+      - If the "recursive" flag is set to true then it will also be recusively
         searched
   * top\_module: Top verilog module in the project
   * constraint\_files: List of constraint files to be used
   * coregen: Settings for coregen
-    * flags: Flags that can be set for the coregen, any flag specified by
+    - flags: Flags that can be set for the coregen, any flag specified by
     the user will override the default values set in
   * xst: Setting for xst synthesizer
-    * flags: Flags that can be set for the synthesizer, any flag specified
+    - flags: Flags that can be set for the synthesizer, any flag specified
       by the user will override the default values set in
         site_scons/xst_default_flags.json
   * ngd: Settings for ngdbuild translator
-    * flags: Flags that can be set for the translator, any flag specified
+    - flags: Flags that can be set for the translator, any flag specified
       by the user will override the default values set in
         site_scons/ngd_default_flags.json
   * map: Settings for map
-    * flags: Flags that can be set for the translator, any flag specified
+    - flags: Flags that can be set for the translator, any flag specified
       by the user will override the default values set in
         site_scons/map_default_flags.json
   * par: Settings for place and route
-    * flags: Flags that can be set for the translator, any flag specified
+    - flags: Flags that can be set for the translator, any flag specified
       by the user will override the default values set in
         site_scons/par_default_flags.json
   * trace: Settings for trace timing analysis
-    * flags: Flags that can be set for the translator, any flag specified
+    - flags: Flags that can be set for the translator, any flag specified
       by the user will override the default values set in
         site_scons/trace_default_flags.json
   * bitgen: Settings for bitgen
-    * flags: Flags that can be set for the translator, any flag specified
+    - flags: Flags that can be set for the translator, any flag specified
       by the user will override the default values set in
         site_scons/bitgen_default_flags.json
-    * configuration: Override the default configuration, any value set in
+    - configuration: Override the default configuration, any value set in
       this block will override the default vlues set in
         site_scons/bitgen_configuration.json  
   
-  * NOTE: by setting a flag to "\_true" then the flag will be inserted as
+  * _NOTE:_ by setting a flag to "\_true" then the flag will be inserted as
   a standalone flag: eg "-my\_flag":"\_true" will show up as:
   ...-my\_flag... for the tool, NOT ...-my\_flag \_true...
-  * NOTE: Do not specify a flag to allow the default flags to override
+  * _NOTE:_ Do not specify a flag to allow the default flags to override
   (the default flags can be viewed in site\_scons/??\_default\_flags.json)
-  * NOTE: Setting a flag to blank will override the default flag with
+  * _NOTE: (boldface)_ Setting a flag to blank will override the default flag with
   nothing  
 
 + Build the project by typing either 'scons' to build all targets or scons
