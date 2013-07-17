@@ -15,8 +15,11 @@
         searched
   * top\_module: Top verilog module in the project
   * constraint\_files: List of constraint files to be used
+  * coregen: Settings for coregen
+    * flags: Flags that can be set for the coregen, any flag specified by
+    the user will override the default values set in
   * xst: Setting for xst synthesizer
-     flags: Flags that can be set for the synthesizer, any flag specified
+    * flags: Flags that can be set for the synthesizer, any flag specified
       by the user will override the default values set in
         site_scons/xst_default_flags.json
   * ngd: Settings for ngdbuild translator
@@ -41,15 +44,15 @@
         site_scons/bitgen_default_flags.json
     * configuration: Override the default configuration, any value set in
       this block will override the default vlues set in
-        site_scons/bitgen_configuration.json
-
+        site_scons/bitgen_configuration.json  
+  
   * NOTE: by setting a flag to "\_true" then the flag will be inserted as
   a standalone flag: eg "-my\_flag":"\_true" will show up as:
   ...-my\_flag... for the tool, NOT ...-my\_flag \_true...
   * NOTE: Do not specify a flag to allow the default flags to override
   (the default flags can be viewed in site\_scons/??\_default\_flags.json)
   * NOTE: Setting a flag to blank will override the default flag with
-  nothing
+  nothing  
 
 + Build the project by typing either 'scons' to build all targets or scons
   plus a Target (listed below)
