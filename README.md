@@ -80,8 +80,13 @@
   * --debug\_build: view debug messages helpful to debug the builder
   * --config\_file: specify a different configuration file than 'config.json'
   * --clean\_build: remove all directories create by the build process
-    config["build\_dir"] directory
-    _xmsgs directory
+                    config["build\_dir"] directory
+                    _xmsgs directory
+  * --clean\_cores: clean the cores, cores take a long time to build so it
+                    doesn't make sense to rebuild them every run so unless
+                    explicitly declared the default clean (scons -c) will
+                    not remove the generate cores
+
 
 
 * * *
