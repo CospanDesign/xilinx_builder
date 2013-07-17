@@ -75,7 +75,9 @@
 
 ##To Do:
 
-  * Add support for vhdl
-  * Add support for multiple verilog/VHDL libraries
-  * Add support for cores
-  * Add support for bmm
+  [x] Add support for vhdl
+  [x] Add Support for SmartGuide (reusing previous builds to speed up new builds)
+  [ ] Add support for multiple verilog/VHDL libraries
+  [x] Add support for cores
+  [ ] Add support for bmm
+
