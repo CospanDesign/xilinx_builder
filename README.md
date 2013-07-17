@@ -8,7 +8,7 @@
     follows:
   * name: Name of the project to be created ex: "project"
   * build\_dir: Output directory of the project ex: "build"
-  * device: Device part number ex: "xc6slx9tqg144-3"
+  * device: Device part number ex: "xc6slx9-tqg144-3"
   * verilog: A list of verilog files or paths
     * If the entry is a directory then all items in the diretory will be added
       * If the "recursive" flag is set to true then it will also be recusively
