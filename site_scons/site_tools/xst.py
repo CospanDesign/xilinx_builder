@@ -35,6 +35,7 @@ import os
 
 import utils
 import xst_utils
+import coregen_utils
 
 
 
@@ -43,6 +44,14 @@ def _xst_emitter(target, source, env):
     #Sources are okay but I need to tell SCons all the stuff this thing
     #makes
     config = utils.read_config(env)
+    coregen_outfiles = coregen_utils.get_target_files(config)
+    if not SCons.Util.is_List(source):
+        source = [source]
+
+    if len(coregen_outfiles) > 0:
+        source.append(coregen_outfiles)
+    #print "source: %s" % source
+
     #Targets:
     #   .lso file
     #   .prj file
@@ -150,7 +159,7 @@ def XST(env, target, source):
     #OKAY MAYBE I DIDN'T NEED A PSUEDO-BUILDER
     config = utils.read_config(env)
     _xst_builder.__call__(env, env["XST_NGC_FILE"], config["verilog"])
-    return xst_utils.get_ngc_filename(config)
+    return [xst_utils.get_ngc_filename(config)]
 
     
 

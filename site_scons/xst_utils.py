@@ -25,6 +25,7 @@ import os
 import json
 
 import utils
+import coregen_utils
 
 XST_DEFAULT_FLAG_FILE = "xst_default_flags.json"
 PROJECT_FILENAME = "project.prj"
@@ -259,6 +260,10 @@ def create_xst_script(config):
     fp.write("-ofmt NGC%s" % (os.linesep))
     fp.write("-p %s%s" % (config["device"], os.linesep))
     fp.write("-top %s%s" % (top_module, os.linesep))
+    coregen_files = coregen_utils.get_target_files(config)
+    if len(coregen_files) > 0:
+        fp.write("-sd %s%s" % (coregen_utils.get_coregen_dir(config, absolute = True), os.linesep))
+
 
     #print "flags[lso] = %s" % str(flags["-lso"]["value"])
     if ("-lso" not in flags.keys()) or (len(flags["-lso"]["value"]) == 0):

@@ -24,6 +24,7 @@ import glob
 import json
 
 import utils
+import coregen_utils
 
 NGD_DEFAULT_FLAG_FILE = "ngd_default_flags.json"
 NGD_PROJECT_UCF = "project.ucf"
@@ -58,6 +59,11 @@ def get_ngd_flags(config):
     default_flags["-dd"]["value"] = get_ngd_dir(config)
     default_flags["-p"]["value"] = config["device"]
     default_flags["-uc"]["value"] = create_ucf_filename(config)
+    coregen_files = coregen_utils.get_target_files(config)
+    if len(coregen_files) > 0:
+        default_flags["-sd"]["value"] = coregen_utils.get_coregen_dir(config, absolute = True)
+
+
     for key in default_flags:
         flags[key] = default_flags[key]
         if key in user_flags.keys():

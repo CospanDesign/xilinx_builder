@@ -31,6 +31,7 @@ import map_utils
 import par_utils
 import trace_utils
 import bitgen_utils
+import coregen_utils
 
 class XilinxNotImplimented(Exception):
     """XilinxNotImplemented
@@ -139,6 +140,31 @@ def get_bitgen_targets(env):
     config = utils.read_config(env)
     return bitgen_utils.get_bitgen_filename(config, absolute = True)
 
+def get_coregen_targets(env):
+    config = utils.read_config(env)
+    return coregen_utils.get_target_files(config)
+
+def clean_cores(env):
+    """
+    Cores take a terribly long time to build so unless the user obliterates
+    everything with a 'clean_build' don't remove the generated cores unless
+    the user explicitly asks for it
+
+    Args:
+        env (SCons Environment): Current environment
+
+    Returns:
+        Empty promises
+
+    Raises:
+        Hopes and Dreams
+    """
+    core_targets = get_coregen_targets(env)
+    for core in core_targets:
+        if os.path.exists(core):
+            os.remove(core)
+    return None
+
 def clean_build(env):
     config = utils.read_config(env)
     base_dir = utils.get_project_base()
@@ -153,6 +179,9 @@ def clean_build(env):
     par_usage = os.path.join(base_dir, "par_usage_statistics.html")
     par_report = "%s_par.xrpt" % config["top_module"]
     par_report = os.path.join(base_dir, par_report)
+
+    #Coregen
+    coregen_log = os.path.join(base_dir, "coregen.log")
 
 
     print "Removing Directories/Files:"
@@ -181,6 +210,9 @@ def clean_build(env):
     if os.path.exists(par_report):
         print "\t%s" % par_report
         os.remove(par_report)
+    if os.path.exists(coregen_log):
+        print "\t%s" % coregen_log
+        os.remove(coregen_log)
 
 
 

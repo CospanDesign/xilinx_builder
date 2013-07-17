@@ -24,7 +24,10 @@ class Test (unittest.TestCase):
         config_fn = os.path.join(utils.get_project_base(), "config.json")
         config = json.load(open(config_fn, "r"))
         flags = xst_utils.get_xst_flags(config)
-        #print "Flags: %s" % str(flags)
+        #print "Flags"
+        #for flag in flags:
+        #    print "\t%s: %s" % (flag, flags[flag]["value"])
+
         self.assertIn("-iob", flags.keys())
 
     def test_create_xst_project_file(self):
