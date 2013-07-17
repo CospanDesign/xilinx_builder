@@ -80,4 +80,7 @@
   [ ] Add support for multiple verilog/VHDL libraries
   [x] Add support for cores
   [ ] Add support for bmm
+  [ ] Test build environment on 32-bit Linux Box
+  [ ] Test build environment on 32-bit Windows Box
+  [ ] Test build environemnt on 64-bit Windows Box
 
