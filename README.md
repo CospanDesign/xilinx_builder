@@ -105,7 +105,7 @@ part the tool will fix the necessary project settings and generate your core.
 ###Example:
 If you named the complex multiplier cm in coregen, it will output
 a lot of files two of them being cm.xco and cm.v. Put cm.xco in the 'cores'
-directory and 'cm.v' in the rtl directory.
+directory and cm.v in the 'rtl' directory.
 
 
 * * *
