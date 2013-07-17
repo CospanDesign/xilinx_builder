@@ -115,14 +115,14 @@ directory and cm.v in the 'rtl' directory.
 
 ##To Do:
 
-  [x] Add support for vhdl  
+  [\_] Add support for vhdl  
   [x] Add Support for SmartGuide (reusing previous builds to speed up new
       builds)  
-  [ ] Add support for multiple verilog/VHDL libraries  
+  [\_] Add support for multiple verilog/VHDL libraries  
   [x] Add support for cores  
-  [ ] Add support for bmm  
-  [ ] Test build environment on 32-bit Linux Box  
-  [ ] Test build environment on 32-bit Windows Box  
-  [ ] Test build environemnt on 64-bit Windows Box  
+  [\_] Add support for bmm  
+  [\_] Test build environment on 32-bit Linux Box  
+  [\_] Test build environment on 32-bit Windows Box  
+  [\_] Test build environemnt on 64-bit Windows Box  
 
 
