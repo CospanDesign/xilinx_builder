@@ -46,12 +46,14 @@
         this block will override the default vlues set in
         site_scons/bitgen_configuration.json  
   
-  * ***NOTE:*** by setting a flag to "\_true" then the flag will be inserted as
-  a standalone flag: eg "-my\_flag":"\_true" will show up as:
+  
+
+  * ***NOTE:*** by setting a flag to "\_true" then the flag will be inserted as 
+  a standalone flag: eg "-my\_flag":"\_true" will show up as: 
   ...-my\_flag... for the tool, NOT ...-my\_flag \_true...
-  * ***NOTE:*** Do not specify a flag to allow the default flags to override
+  * ***NOTE:*** Do not specify a flag to allow the default flags to override 
   (the default flags can be viewed in site\_scons/??\_default\_flags.json)
-  * ***NOTE:*** Setting a flag to blank will override the default flag with
+  * ***NOTE:*** Setting a flag to blank will override the default flag with 
   nothing  
 
 + Build the project by typing either 'scons' to build all targets or scons
@@ -77,15 +79,15 @@
       (_par.ncd -> .twr)
 
 ###Flags:
-  * --debug\_build: view debug messages helpful to debug the builder
-  * --config\_file: specify a different configuration file than 'config.json'
-  * --clean\_build: remove all directories create by the build process
-                    config["build\_dir"] directory
-                    _xmsgs directory
-  * --clean\_cores: clean the cores, cores take a long time to build so it
-                    doesn't make sense to rebuild them every run so unless
-                    explicitly declared the default clean (scons -c) will
-                    not remove the generate cores
+  * --debug\_build: view debug messages helpful to debug the builder 
+  * --config\_file: specify a different configuration file than 'config.json' 
+  * --clean\_build: remove all directories create by the build process 
+                    config["build\_dir"] directory 
+                    _xmsgs directory 
+  * --clean\_cores: clean the cores, cores take a long time to build so it 
+                    doesn't make sense to rebuild them every run so unless 
+                    explicitly declared the default clean (scons -c) scons 
+                    will not remove the generated cores 
 
 
 
