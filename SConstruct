@@ -83,7 +83,7 @@ env.Alias("xst", xilinx.get_xst_targets(env))
 env.Alias("ngdbuild", xilinx.get_ngd_targets(env))
 env.Alias("map", xilinx.get_map_targets(env))
 env.Alias("par", xilinx.get_par_targets(env))
-env.Alias("trace", xilinx.get_trace_targets(env))
+env.Alias("trce", xilinx.get_trace_targets(env))
 env.Alias("bitgen", xilinx.get_bitgen_targets(env))
 
 coregen_files = env.coregen(xilinx.get_coregen_targets(env), None)
