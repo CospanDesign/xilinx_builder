@@ -80,7 +80,7 @@ if debug == True:
 #Alias recognizable builder commands
 env.Alias("coregen", xilinx.get_coregen_targets(env))
 env.Alias("xst", xilinx.get_xst_targets(env))
-env.Alias("ngd", xilinx.get_ngd_targets(env))
+env.Alias("ngdbuild", xilinx.get_ngd_targets(env))
 env.Alias("map", xilinx.get_map_targets(env))
 env.Alias("par", xilinx.get_par_targets(env))
 env.Alias("trace", xilinx.get_trace_targets(env))
