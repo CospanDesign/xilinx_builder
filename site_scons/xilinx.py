@@ -83,9 +83,6 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
     env['XILINX_PLANAHEAD'] = os.path.join(xpath, "PlanAhead")
     env['XILINX'] = xpath
 
-    #This is used for the license file
-    #for n in os.environ:
-    #    print "%s: %s" % (n, str(os.environ[n]))
     if "USER" not in os.environ:
         os.environ["USER"] = getpass.getuser()
 	if "XILINXD_LICENSE_FILE" in os.environ:
@@ -102,6 +99,9 @@ def initialize_environment(env, xilinx_path = "", build_tool = "ISE", version_nu
     #print "build tool: %s" % build_tool
     #print "version number: %s" % version_number
     #print "xpath: %s" % xpath
+    #This is used for the license file
+	if os.name == "nt":
+		env["ENV"]["USERNAME"] = env['ENV']["USER"]
 
     if build_tool.lower() == "ise" or build_tool.lower() == "planahead":
         env.AppendENVPath("PATH", os.path.join(xpath, "PlanAhead", "bin"))
