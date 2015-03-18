@@ -9,7 +9,7 @@
  "-glob_opt"                         :{"description":"Global Optimization Goal",        "value":"AllClockNets"},
  "-rtlview"                          :{"description":"Generate RTL Schemtic",           "value":"Yes"},
  "-read_cores"                       :{"description":"Read Cores",                      "value":"YES"},
- "-sd"                               :{"description":"Cores Search Directories",        "value":""},
+ "-sd"                               :{"description":"Cores Search Directories",        "value":"cores"},
  "-write_timing_constraints"         :{"description":"Write Timing Constraint",         "value":"NO"},
  "-cross_clock_analysis"             :{"description":"Cross Clock Analysis",            "value":"NO"},
  "-hierarchy_separator"              :{"description":"Hierarchy Separator",             "value":"/"},
